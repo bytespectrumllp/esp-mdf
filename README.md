@@ -1,3 +1,6 @@
+# AWS-IOT integration in ESP-MDF (By Bytespectrum Technologies LLP)
+website: https://www.bytespectrum.com, email: info@bytespectrum.com
+
 # ESP-WIFI-MESH Development Framework [[中文]](./README_cn.md)
 
 [![Documentation Status](https://readthedocs.com/projects/espressif-esp-mdf/badge/?version=latest)](https://docs.espressif.com/projects/esp-mdf/en/latest/?badge=latest)
