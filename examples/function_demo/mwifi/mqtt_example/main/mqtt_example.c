@@ -18,6 +18,8 @@
 
 #define MEMORY_DEBUG
 
+#define AWS_URL "mqtts://ExapleURL-ats.iot.ap-south-1.amazonaws.com" //TODO: Add your Device data endpoint: get it from AWS_IOT>settings>
+
 static const char *TAG = "mqtt_examples";
 esp_netif_t *sta_netif;
 
@@ -275,7 +277,7 @@ static mdf_err_t event_loop_cb(mdf_event_loop_t event, void *ctx)
         case MDF_EVENT_MWIFI_ROOT_GOT_IP: {
             MDF_LOGI("Root obtains the IP address. It is posted by LwIP stack automatically");
 
-            mesh_mqtt_start(CONFIG_MQTT_URL);
+            mesh_mqtt_start(AWS_URL);
 
             xTaskCreate(root_write_task, "root_write", 4 * 1024,
                         NULL, CONFIG_MDF_TASK_DEFAULT_PRIOTY, NULL);
