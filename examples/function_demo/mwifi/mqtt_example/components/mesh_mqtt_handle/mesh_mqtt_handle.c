@@ -30,6 +30,24 @@ static struct mesh_mqtt {
 
 static const char *TAG = "mesh_mqtt";
 
+static const char root_ca[] = "PASTE ROOT CA Here"; // TODO: Open "root-ca.pem" file in your favourate text editor, copy and paste in
+static const char client_cert[] = "PASTE certificate.pem.crt Here"; // TODO: Open "certificate.pem.crt" file in your favourate text editor, copy and paste in
+static const char client_cert[] = "PASTE private.pem.key Here"; // TODO: Open "private.pem.key" file in your favourate text editor, copy and paste in
+
+/***
+Note: paste certificate, should add \n\ at the end of every line except last line
+Example: 
+static const char root_ca[] = "-----BEGIN CERTIFICATE-----\n\
+MIIDQTCCAimgAwIBAgITBmyfz5m/jAo54vB4ikPmljZbyjANBgkqhkiG9w0BAQsF\n\
+.\n\
+.\n\
+.\n\
+rqXRfboQnoZsG4q5WTP468SQvvG5\n\
+-----END CERTIFICATE-----"
+;
+***/
+
+
 static const char publish_topic_template[] = "mesh/%02x%02x%02x%02x%02x%02x/toCloud";
 static const char topo_topic_template[] = "mesh/%02x%02x%02x%02x%02x%02x/topo";
 static const char subscribe_topic_template[] = "mesh/%02x%02x%02x%02x%02x%02x/toDevice";
@@ -388,8 +406,9 @@ mdf_err_t mesh_mqtt_start(char *url)
     esp_mqtt_client_config_t mqtt_cfg = {
         .uri = url,
         .event_handle = mqtt_event_handler,
-        // .client_cert_pem = (const char *)client_cert_pem_start,
-        // .client_key_pem = (const char *)client_key_pem_start,
+        .client_cert_pem = (const char *)client_cert,
+        .client_key_pem = (const char *)client_key,
+        .cert_pem = (const char *)root_ca,    
     };
     MDF_ERROR_ASSERT(esp_read_mac(g_mesh_mqtt.addr, ESP_MAC_WIFI_STA));
     snprintf(g_mesh_mqtt.publish_topic, sizeof(g_mesh_mqtt.publish_topic), publish_topic_template, MAC2STR(g_mesh_mqtt.addr));
